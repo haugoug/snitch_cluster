@@ -4,7 +4,7 @@
 
 GVSOC_BUILDDIR ?= work-gvsoc
 
-$(BIN_DIR)/$(TARGET).gvsoc:
+$(BIN_DIR)/$(TARGET).gvsoc: | $(BIN_DIR)
 	@echo "#!/bin/bash" > $@
 	@echo 'binary=$$(realpath $$1)' >> $@
 	@echo 'echo $$binary > .rtlbinary' >> $@
@@ -12,7 +12,10 @@ $(BIN_DIR)/$(TARGET).gvsoc:
 	@echo 'if [ -z "$$GVSOC_TARGET" ]; then' >> $@
 	@echo '    GVSOC_TARGET=snitch' >> $@
 	@echo 'fi' >> $@
-	@echo 'gvsoc --target=$${GVSOC_TARGET} --binary $$binary \
+	@echo 'if [ -z "$$GVSOC_WORK_DIR" ]; then' >> $@
+	@echo '    GVSOC_WORK_DIR=gvsoc-work' >> $@
+	@echo 'fi' >> $@
+	@echo 'gvsoc --target=$${GVSOC_TARGET} --work $${GVSOC_WORK_DIR} --binary $$binary \
 	   --control-script=$${path}/../../util/sim/gvsoc_control.py $$2 run' >> $@
 	@chmod +x $@
 
