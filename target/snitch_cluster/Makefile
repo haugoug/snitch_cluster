@@ -117,7 +117,7 @@ $(CFG): FORCE
 	@# If the LRU config file doesn't exist, we use the default config.
 	@if [ ! -e "$@" ] ; then \
 		echo "Using default config file: $(DEFAULT_CFG)"; \
-		ln -s --relative $(DEFAULT_CFG) $@; \
+		ln -s $(abspath $(DEFAULT_CFG)) $@; \
 		touch $(DEFAULT_CFG); \
 	fi
 	@# If a config file is provided on the command-line and the LRU
@@ -129,7 +129,7 @@ $(CFG): FORCE
 			echo "LRU config file already points to $(CFG_OVERRIDE). Nothing to be done."; \
 		else \
 			rm -f $@; \
-			ln -s --relative $(CFG_OVERRIDE) $@; \
+			ln -s $(abspath $(CFG_OVERRIDE)) $@; \
 			touch $(CFG_OVERRIDE); \
 		fi \
 	fi
