@@ -74,7 +74,7 @@ packages:
     revision: 1a42da9d5c76f1cff0bcdaaacc474ed85631d734
     version: null
     source:
-      Git: https://github.com/pulp-platform/iDMA
+      Git: git@gitlab.com:hw9372013/idma.git
     dependencies:
     - axi
     - axi_stream
